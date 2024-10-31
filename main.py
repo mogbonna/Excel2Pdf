@@ -41,13 +41,22 @@ for filepath in filepaths:
         pdf.cell(30, 8, txt=str(row["price_per_unit"]), border=1)
         pdf.cell(30, 8, txt=str(row["total_price"]), border=1, ln=1)
 
-    total_sum = df["total_price"].sum
+    total_sum = df["total_price"].sum()
     pdf.set_font(family="Times", size=10)
     pdf.set_text_color(80, 80, 80)
     pdf.cell(30, 8,  border=1)
     pdf.cell(70, 8,  border=1)
     pdf.cell(30, 8,  border=1)
     pdf.cell(30, 8, border=1)
-    pdf.cell(30, 8, txt=str(row["total_sum"]), border=1, ln=1)
+    pdf.cell(30, 8, txt=str(total_sum), border=1, ln=1)
+
+    # Add total sum sentence
+    pdf.set_font(family="Times", size=16, style="B")
+    pdf.cell(50, 8, f"The total sum is {total_sum}", ln=1)
+
+    # Add Company and logo
+    pdf.set_font(family="Times", size=14, style="B")
+    pdf.cell(25, 8, "MosesPython")
+    pdf.image('pythonhow.png', w=10)
 
     pdf.output(f"PDFs/{filename}.pdf")
